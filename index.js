@@ -20,8 +20,12 @@ app.get('/azar/:numero', (req, res) => {
 
 // escuchar peticiones externas (routing)
 app.get('/', (req, res) => {
-    res.send('Respondiendo a la ruta raiz o')
+    res.send("¡Bienvenido a mi sitio web!")
 })
+
+app.get('/about', (req, res) => {
+    res.send("Soy un entusiasta de la programación y me encanta aprender nuevas tecnologías.");
+});
 
 //inventar 3 rutas más
 app.get('/intento1', (req, res) => {
@@ -40,8 +44,8 @@ app.get('/pc', (req, res) => {
 
 // 404 poner al final
 app.get('*', (req, res) => {
-    res.send('404 :(')
-})
+    res.send("<h1>404 - Página no encontrada</h1><p>Lo siento, la página que buscas no existe.</p>");
+});
 
 //levantar un servidor
 const PORT = process.env.PORT || 5000;
