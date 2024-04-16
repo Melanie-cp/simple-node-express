@@ -2,6 +2,31 @@ import express from 'express';
 
 const app = express()
 
+app.use(express.static("assets"));
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + '/index.html')
+})
+
+app.get('/usuario/:nombre', (req, res) => {
+    const nombre = req.params.nombre
+    const test = nombre.match(/^[aeiouAEIOU]/);
+
+    if (test) {
+        res.send("Si, tu nombre empieza con una vocal");
+    }
+    else {
+        res.send("No, tu nombre no empieza con una vocal");
+    }
+})
+
+app.use("/colores/:color", (req, res, next) => {
+    const { color } = req.params;
+    color == "azul" ? next() : res.send("No es azúl");
+});
+app.get("/colores/:color", (req, res, next) => {
+    res.send("Si, es azúl")
+});
+
 //parametros de ruta
 app.get('/game/:number', (req, res) => {
     // console.log(req.params.number)
@@ -36,6 +61,9 @@ app.get('/hello', (req, res) => {
     res.send('Hola mundo con express')
 })
 
+app.get('/musica', (req, res) => {
+    res.redirect('https://open.spotify.com/')
+})
 
 // objeto response
 app.get('/pc', (req, res) => {
